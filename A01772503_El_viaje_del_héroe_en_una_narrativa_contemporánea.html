@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El viaje del héroe en Sam Zabel y la pluma mágica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .journey-circle {
+            position: relative;
+            width: 600px;
+            height: 600px;
+            margin: 50px auto;
+            background: radial-gradient(circle, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .center-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .stage {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: white;
+            border: 4px solid #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            color: #667eea;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        .stage:hover {
+            transform: scale(1.2);
+            background: #667eea;
+            color: white;
+            box-shadow: 0 5px 20px rgba(102,126,234,0.5);
+        }
+        
+        .stage.active {
+            background: #667eea;
+            color: white;
+            transform: scale(1.3);
+        }
+        
+        .content-section {
+            padding: 40px;
+        }
+        
+        .stage-detail {
+            display: none;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .stage-detail.active {
+            display: block;
+        }
+        
+        .stage-detail h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        
+        .stage-detail .emoji {
+            font-size: 2em;
+            margin-right: 10px;
+        }
+        
+        .quote {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #764ba2;
+            font-style: italic;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .quote img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 15px auto;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background: #e9ecef;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+            font-weight: 500;
+        }
+        
+        .tab:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .tab.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .references {
+            background: #f8f9fa;
+            padding: 30px;
+            margin-top: 40px;
+            border-radius: 15px;
+        }
+        
+        .references h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .references p {
+            margin: 10px 0;
+            padding-left: 20px;
+            text-indent: -20px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .journey-circle {
+                width: 400px;
+                height: 400px;
+            }
+            
+            .stage {
+                width: 40px;
+                height: 40px;
+                font-size: 0.8em;
+            }
+            
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            .content-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Matías Piedra Pichardo: El viaje del héroe en Sam Zabel y la pluma mágica</h1>
+            <p>Un análisis según el Monomito de Joseph Campbell</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Obra analizada: <em>Sam Zabel and the Magic Pen</em> de Dylan Horrocks</p>
+        </header>
+        
+        <div class="content-section">
+            <h2 style="text-align: center; color: #2c3e50; margin-bottom: 30px;">El Círculo del Monomito</h2>
+            <p style="text-align: center; margin-bottom: 30px; color: #666;">Haz clic en cada etapa para explorar el análisis</p>
+            
+            <div class="journey-circle" id="circle">
+                <div class="center-image">
+                    MITO<br>ÚNICO<br><small>El Viaje del Héroe</small>
+                </div>
+            </div>
+            
+            <div class="tabs">
+                <button class="tab active" onclick="showPhase('all')">Todas las etapas</button>
+                <button class="tab" onclick="showPhase('departure')">Partida</button>
+                <button class="tab" onclick="showPhase('initiation')">Iniciación</button>
+                <button class="tab" onclick="showPhase('return')">Retorno</button>
+            </div>
+            
+            <div id="stages-content">
+                <!-- Stage 1 -->
+                <div class="stage-detail" data-phase="departure" data-stage="1">
+                    <h2>1. La llamada de la aventura</h2>
+                    <p>Sam Zabel, un dibujante de cómics bloqueado creativamente, se encuentra en un punto de crisis existencial y artística. La llamada surge cuando descubre un misterioso cómic antiguo titulado <em>EL REY DE MARTE</em> en una tienda de segunda mano. Este hallazgo representa el inicio de su transformación.</p>
+                    <div class="quote">
+                        <img src="images/llamado.jpeg" alt="Llamado Sam Zabel">
+                        Sam miraba las páginas del cómic, cuando algo lo llamó desde otro mundo (Horrocks, 2014).
+                    </div>
+                    <p>Esta etapa muestra cómo el héroe es invitado a abandonar su mundo ordinario. Para Sam, ese mundo ordinario está marcado por la frustración, el vacío creativo y la pérdida de pasión por su oficio.</p>
+                </div>
+                
+                <!-- Stage 2 -->
+                <div class="stage-detail" data-phase="departure" data-stage="2">
+                    <h2>2. Rechazo a la llamada</h2>
+                    <p>Sam experimenta dudas profundas sobre su capacidad para volver a crear. Se siente incapaz de dibujar o soñar como antes, atrapado en un ciclo de inseguridad, debilidad y miedo. Este rechazo refleja su agotamiento emocional y creativo.</p>
+                    <p>Sam teme enfrentarse a sus propios demonios internos y prefiere mantenerse en su zona de confort, aunque esta sea insatisfactoria.</p>
+                    <p>Este elemento es crucial porque humaniza al héroe, mostrando que incluso los llamados a la aventura no siempre están preparados o dispuestos a responder inmediatamente.</p>
+                </div>
+                
+                <!-- Stage 3 -->
+                <div class="stage-detail" data-phase="departure" data-stage="3">
+                    <h2>3. Ayuda sobrenatural</h2>
+                    <p>MIKI aparece como el elemento sobrenatural que facilitará el viaje de Sam.</p>
+                    <div class="quote">
+                        <img src="images/miki.jpg" alt="MIKI BOTAS">
+                        
+                        (Horrocks, 2014).
+                    </div>
+                    <p>La ayuda sobrenatural puede ser un objeto mágico o un personaje protector que prepara al héroe para lo que vendrá.</p>
+                </div>
+                
+                <!-- Stage 4 -->
+                <div class="stage-detail" data-phase="departure" data-stage="4">
+                    <h2>4. El primer umbral</h2>
+                    <p>Sam cruza literalmente el umbral entre la realidad y la fantasía cuando entra en el universo del cómic. Este momento marca el punto de no retorno, donde se aventura en un terreno desconocido y peligroso donde no se conocen reglas ni limitaciones.</p>
+                    <p>Este umbral representa la ruptura definitiva con su mundo ordinario. Ya no es simplemente un lector o creador observando desde fuera, sino un participante activo dentro de las narrativas que alguna vez creó o consumió.</p>
+                    <p>El paso hacia la esfera de renacimiento, y para Sam, significa adentrarse en las profundidades de su propia imaginación y enfrentar lo que ha estado evitando.</p>
+                </div>
+                
+                <!-- Stage 5 -->
+                <div class="stage-detail" data-phase="initiation" data-stage="5">
+                    <h2>5. En el vientre de la ballena</h2>
+                    <p>El viaje interior de Sam comienza en profundidad. Se ve completamente inmerso en mundos de fantasía y deseo, sin control real sobre ellos. Esta etapa representa la separación final del yo anterior y del mundo conocido.</p>
+                    <p>Sam participa en estas narrativas pero se muestra dispuesto a una metamorfosis. Los mundos del cómic lo consumen, transformándolo y obligándolo a confrontar aspectos de sí mismo que había ignorado o reprimido.</p>
+                    <p>Esta fase simboliza una muerte simbólica del antiguo Sam y el inicio de su renacimiento como un creador más consciente y responsable.</p>
+                </div>
+                
+                <!-- Stage 6 -->
+                <div class="stage-detail" data-phase="initiation" data-stage="6">
+                    <h2>6. Las pruebas</h2>
+                    <p>Sam se encuentra con diversos personajes y situaciones que representan distintas tareas aparentemente imposibles. Conoce a Alice, una autora de webcómic, y a Miki, una colegiala japonesa. Cada aventura (ciencia ficción, western, historias eróticas) lo enfrenta con dilemas éticos y emocionales.</p>
+                    <div class="quote">
+                        <img src="images/aventuras.jpg" alt="Aventuras">
+                        
+                        (Horrocks, 2014).
+                    </div>
+                    <p>Estas pruebas tienen fallas y son peligrosas. Sam descubre poderes dentro de sí mismo que no conocía, pero también se enfrenta a la responsabilidad de usarlos correctamente. Campbell (2008) señala que "el héroe debe descubrir y asimilar su opuesto" (p. 108), y Sam hace exactamente eso al explorar diferentes géneros y narrativas.</p>
+                </div>
+                
+                <!-- Stage 7 -->
+                <div class="stage-detail" data-phase="initiation" data-stage="7">
+                    <h2>7. Encuentro con la diosa</h2>
+                    <p>Alice representa el encuentro con la diosa en el viaje de Sam. Ella encarna la comprensión, la inspiración y el respeto genuino por los personajes y las historias. Su relación con Sam es poderosa porque ella es el amor incondicional personificado en su rol como creadora consciente.</p>
+                    <p>Sam aprende de Alice que crear es también cuidar, que los personajes no son simplemente herramientas sino entidades que merecen respeto y consideración. Ella le enseña que la verdadera creatividad viene del amor y el respeto, no de la manipulación o la explotación.</p>
+                </div>
+                
+                <!-- Stage 8 -->
+                <div class="stage-detail" data-phase="initiation" data-stage="8">
+                    <h2>8. La tentación</h2>
+                    <p>La colegiala Miki y las escenas eróticas del cómic representan la tentación más significativa para Sam. Muchas actividades, placeres y recompensas lo tientan a abandonar su misión transformadora.</p>
+                    <p>Sam se enfrenta a la tentación de usar su pluma mágica sin ética ni responsabilidad, creando fantasías que lo gratifican pero que explotan a los personajes femeninos. Esta etapa pone a prueba su integridad moral y su comprensión sobre el poder de la creación.</p>
+                </div>
+                
+                <!-- Stage 9 -->
+                <div class="stage-detail" data-phase="initiation" data-stage="9">
+                    <h2>9. La consagración</h2>
+                    <p>Sam reconoce finalmente el verdadero poder de su don: crear mundos implica una responsabilidad ética profunda. Se enfrenta con quien ostenta el mayor poder en su vida, que en este caso es él mismo como creador omnipotente.</p>
+                    <p>Empieza a reconciliarse con su papel como autor, comprendiendo que sus creaciones tienen peso y consecuencias. Este momento culminante de la preparación marca el punto donde Sam acepta plenamente las implicaciones de su poder creativo.</p>
+                    <div class="quote">
+                        <img src="images/mundos.jpeg" alt="Mundos">
+                        
+                        (Horrocks, 2014).
+                    </div>
+                </div>
+                
+                <!-- Stage 10 -->
+                <div class="stage-detail" data-phase="initiation" data-stage="10">
+                    <h2>10. La apoteosis</h2>
+                    <p>Sam alcanza una comprensión profunda.</p>
+                    <p>Comprende que su bloqueo creativo no era causado por la falta de ideas o habilidad, sino por el miedo a confrontar verdades incómodas sobre sí mismo y su arte.</p>
+                   
+                </div>
+                
+                <!-- Stage 11 -->
+                <div class="stage-detail" data-phase="return" data-stage="11">
+                    <h2>11. El don final</h2>
+                    <p>Sam encuentra inspiración genuina y auténtica. Es el logro del objetivo de la misión, el clímax de su viaje. Todos los pasos previos sirvieron para preparar al héroe para este momento en el que consigue ese preciado objetivo trascendental.</p>
+                    <p>Su bloqueo creativo desaparece completamente. Recupera la pasión y el propósito que había perdido, pero ahora equipado con una comprensión más profunda de lo que significa ser un creador responsable.</p>
+                    <p>Este don no es solo para Sam; es también para sus futuros lectores y para los personajes que creará con una nueva perspectiva ética y consciente.</p>
+                </div>
+                
+                <!-- Stage 12 -->
+                <div class="stage-detail" data-phase="return" data-stage="12">
+                    <h2>12. La negativa a regresar</h2>
+                    <p>Después de haber encontrado la felicidad y la iluminación en el otro mundo, Sam teme abandonar el mundo fantástico donde se siente poderoso, libre y completo. El héroe duda y desea o rehúsa volver al mundo ordinario.</p>
+                    
+                </div>
+                
+                <!-- Stage 13 -->
+                <div class="stage-detail" data-phase="return" data-stage="13">
+                    <h2>13. El vuelo mágico</h2>
+                    <p>A veces el héroe debe escapar con el don conseguido, huyendo de dioses y peligros. Sam finalmente escapa del mundo del cómic, llevando consigo las lecciones aprendidas. Es un regreso simbólico al mundo real.</p>
+                    
+                </div>
+                
+                <!-- Stage 14 -->
+                <div class="stage-detail" data-phase="return" data-stage="14">
+                    <h2>14. El rescate externo</h2>
+                    <p>Así como había necesitado iniciadores y guías para comenzar la aventura, Sam necesita asistencia o salvadores para iniciar el retorno. Alice y otros personajes del cómic lo ayudan a regresar, recordándole que el arte no se crea en aislamiento.</p>
+                    <p>Esta etapa enfatiza la importancia de la comunidad y la colaboración en el proceso creativo. Sam aprende que, aunque el acto de crear puede ser solitario, la inspiración y el apoyo vienen de las conexiones con otros.</p>
+                </div>
+                
+                <!-- Stage 15 -->
+                <div class="stage-detail" data-phase="return" data-stage="15">
+                    <h2>15. El umbral del retorno</h2>
+                    <p>El sentido del regreso es la conservación de la sabiduría adquirida en la búsqueda, la incorporación de esa sabiduría en una vida humana. Sam regresa al mundo real con una nueva visión del arte y la vida.</p>
+                    <p>Ya no ve la creación como una carga o una fuente de ansiedad, sino como una forma significativa de conexión con otros. Luego debe encontrar la manera de manifestar con el resto del mundo lo que ha aprendido.</p>
+                </div>
+                
+                <!-- Stage 16 -->
+                <div class="stage-detail" data-phase="return" data-stage="16">
+                    <h2>16. Maestro de los dos mundos</h2>
+                    <p>El héroe logra un equilibrio entre lo material y lo espiritual. Sam alcanza el equilibrio entre fantasía y realidad, imaginación y ética. Logra sentirse cómodo balanceando ambos mundos: el cotidiano y el excepcional, el interior y el exterior.</p>
+                    <p>Vive como un artista consciente y como un ser humano íntegro, capaz de navegar entre la creatividad ilimitada y la responsabilidad ética. Esto no significa perfección, sino la capacidad de mantener la conciencia en ambos mundos simultáneamente.</p>
+                </div>
+                
+                <!-- Stage 17 -->
+                <div class="stage-detail" data-phase="return" data-stage="17">
+                    <h2>17. Libertad para vivir</h2>
+                    <p>El equilibrio y el entendimiento llevado a libros del temor a la muerte. Sam acepta completamente su papel como creador, viviendo con alegría y propósito.</p>
+                    <div class="quote">
+                         (Horrocks, 2014).
+                    </div>
+                    <p>Esta es la culminación del viaje del héroe. Sam ha alcanzado la libertad verdadera: la libertad de crear sin miedo, de vivir sin culpa, de expresarse sin limitaciones autoimpuestas pero con plena conciencia de sus responsabilidades.</p>
+                    
+                </div>
+            </div>
+            
+            <div class="references">
+                <h2>Referencias</h2>
+                <p>Horrocks, D. (2014). <em>Sam Zabel y la pluma mágica</em>. Astiberri.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const stages = [
+            { number: 1, angle: 0, phase: 'departure' },
+            { number: 2, angle: 21.2, phase: 'departure' },
+            { number: 3, angle: 42.4, phase: 'departure' },
+            { number: 4, angle: 63.6, phase: 'departure' },
+            { number: 5, angle: 84.8, phase: 'initiation' },
+            { number: 6, angle: 106, phase: 'initiation' },
+            { number: 7, angle: 127.2, phase: 'initiation' },
+            { number: 8, angle: 148.4, phase: 'initiation' },
+            { number: 9, angle: 169.6, phase: 'initiation' },
+            { number: 10, angle: 190.8, phase: 'initiation' },
+            { number: 11, angle: 212, phase: 'return' },
+            { number: 12, angle: 233.2, phase: 'return' },
+            { number: 13, angle: 254.4, phase: 'return' },
+            { number: 14, angle: 275.6, phase: 'return' },
+            { number: 15, angle: 296.8, phase: 'return' },
+            { number: 16, angle: 318, phase: 'return' },
+            { number: 17, angle: 339.2, phase: 'return' }
+        ];
+        
+        const circle = document.getElementById('circle');
+        const radius = 250;
+        
+        stages.forEach(stage => {
+            const stageEl = document.createElement('div');
+            stageEl.className = 'stage';
+            stageEl.textContent = stage.number;
+            stageEl.dataset.stage = stage.number;
+            stageEl.dataset.phase = stage.phase;
+            
+            const angleRad = (stage.angle - 90) * Math.PI / 180;
+            const x = 270 + radius * Math.cos(angleRad);
+            const y = 270 + radius * Math.sin(angleRad);
+            
+            stageEl.style.left = x + 'px';
+            stageEl.style.top = y + 'px';
+            
+            stageEl.addEventListener('click', () => showStage(stage.number));
+            
+            circle.appendChild(stageEl);
+        });
+        
+        function showStage(stageNum) {
+            document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.stage-detail').forEach(d => d.classList.remove('active'));
+            
+            const stageEl = document.querySelector(`.stage[data-stage="${stageNum}"]`);
+            const detailEl = document.querySelector(`.stage-detail[data-stage="${stageNum}"]`);
+            
+            if (stageEl) stageEl.classList.add('active');
+            if (detailEl) {
+                detailEl.classList.add('active');
+                detailEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+        
+        function showPhase(phase) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.stage-detail').forEach(d => d.classList.remove('active'));
+            
+            if (phase === 'all') {
+                document.querySelectorAll('.stage-detail').forEach(d => d.classList.add('active'));
+            } else {
+                document.querySelectorAll(`.stage-detail[data-phase="${phase}"]`).forEach(d => {
+                    d.classList.add('active');
+                });
+            }
+        }
+        
+        showPhase('all');
+    </script>
+</body>
+</html>
